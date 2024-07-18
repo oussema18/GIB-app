@@ -16,7 +16,7 @@ export default function QRScanner({ navigation }) {
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    navigation.navigate("Home", { scannedId: data });
+    navigation.navigate("Home", { scannedId: data, openModal: true });
   };
 
   if (hasPermission === null) {

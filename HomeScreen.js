@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import {
   View,
@@ -8,26 +8,25 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { getProductDetailsById } from "./backend/server.js";
+import ProductDetailsModal from "./ProductDetailsModal";
 
 export default function HomeScreen({ navigation, route }) {
-  const { scannedId } = route.params || {}; // Retrieve the scanned ID from navigation parameters
+  const [product, setProduct] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const supabase = createClient(
-    "https://dacvvspdtayiatuxpsci.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhY3Z2c3BkdGF5aWF0dXhwc2NpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjEzMDk3NzcsImV4cCI6MjAzNjg4NTc3N30.-QuLH6zBMtEnMLIocPHAj8QketLS5dqUT0UpoPxShJc"
-  );
-
-  supabase
-    .from("Produits")
-    .select("*")
-    .then((response) => {
-      const { data, error } = response;
-      if (error) {
-        console.error("Error fetching data:", error);
-      } else {
-        console.log("Data fetched successfully:", data);
-      }
-    });
+  useEffect(() => {
+    if (route.params?.scannedId) {
+      getProductDetailsById(route.params.scannedId)
+        .then((productDetails) => {
+          setProduct(productDetails);
+          setModalVisible(true); // Open the modal
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  }, [route.params?.scannedId]);
 
   return (
     <View style={styles.container}>
@@ -41,16 +40,19 @@ export default function HomeScreen({ navigation, route }) {
         />
       </TouchableOpacity>
       <Text style={styles.title}>Home Screen</Text>
-      <Text>
-        {scannedId && (
-          <Text style={styles.scannedText}>Scanned ID: {scannedId}</Text>
-        )}
-      </Text>
-      {/* Display the scanned ID */}
       <Button
         title="Scan QR Code"
         onPress={() => navigation.navigate("QRScanner")}
       />
+      <View style={styles.container}>
+        {product && (
+          <ProductDetailsModal
+            product={product}
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+          />
+        )}
+      </View>
     </View>
   );
 }
@@ -76,10 +78,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 20,
-  },
-  scannedText: {
-    fontSize: 18,
-    color: "green",
-    marginVertical: 20,
   },
 });
