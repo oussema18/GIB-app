@@ -73,7 +73,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
-    paddingTop: 50,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
   },
   profileIcon: {
     position: "absolute",
@@ -84,9 +87,5 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
   },
 });

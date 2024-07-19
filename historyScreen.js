@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Button, StyleSheet, FlatList, Image } from 'react-native';
 
 export default function HistoryScreen({ route, navigation }) {
   const { history = [], resetHistory } = route.params || {};
@@ -11,13 +11,19 @@ export default function HistoryScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Scanned History</Text>
       <FlatList
         data={history}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text style={styles.itemText}>{item}</Text>
+            <Image source={{ uri: item.Image }} style={styles.itemImage} />
+            <Text style={styles.itemText}>ID: {item.identifiant}</Text>
+            <Text style={styles.itemText}>Nom Produit: {item.Nom}</Text>
+            <Text style={styles.itemText}>Prix: {item.Prix}</Text>
+            <Text style={styles.itemText}>Description: {item.Description}</Text>
+            <Text style={styles.itemText}>Couleur: {item.Couleur}</Text>
+
+            {/* Add other product details as needed */}
           </View>
         )}
       />
@@ -37,11 +43,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   item: {
-    padding: 10,
-    borderBottomWidth: 1,
+    padding: 20,
+    borderBottomWidth: 3,
     borderBottomColor: '#ccc',
   },
   itemText: {
     fontSize: 18,
+    marginLeft: 10, // Add some margin to the left of the text for spacing
+  },
+  itemImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
   },
 });

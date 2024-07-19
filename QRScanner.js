@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialIcons } from '@expo/vector-icons';
+import { getProductDetailsById } from "./backend/server.js";
 
 export default function QRScanner({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -16,13 +17,17 @@ export default function QRScanner({ navigation, route }) {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ data }) => {
+  const handleBarCodeScanned = async ({ data }) => {
     setScanned(true);
-    const currentHistory = route.params?.history || [];
-    const updatedHistory = [...currentHistory, data];
-    
-    // Navigate to Home with updated history
-    navigation.navigate("Home", { scannedId: data, openModal: true, history: updatedHistory });
+    try {
+      const productDetails = await getProductDetailsById(data);
+      const currentHistory = route.params?.history || [];
+      const updatedHistory = [...currentHistory, productDetails];
+
+      navigation.navigate("Home", { scannedId: data, openModal: true, history: updatedHistory });
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+    }
   };
 
   const toggleFlash = () => {
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.6)", // Darker overlay
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -103,13 +108,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   square: {
-    width: 250, // Adjust size as needed
+    width: 250,
     height: 250,
     borderColor: "white",
     borderWidth: 2,
     backgroundColor: "transparent",
     borderRadius: 10,
-    borderStyle: "dashed", // Dashed border for visual effect
+    borderStyle: "dashed",
   },
   instructionText: {
     color: "white",
