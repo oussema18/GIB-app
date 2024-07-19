@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 import QRScanner from "./QRScanner.js";
+import HistoryScreen from "./historyScreen.js";
 
 const Stack = createStackNavigator();
 function ProfileScreen() {
@@ -29,6 +30,7 @@ export default function App() {
         />
         <Stack.Screen name="QRScanner" component={QRScanner} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="History" component={HistoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
