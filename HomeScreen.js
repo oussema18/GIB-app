@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Button,
+} from "react-native";
 import { getProductDetailsById } from "./backend/server.js";
 import ProductDetailsModal from "./ProductDetailsModal";
+import { Card, Text } from "@ui-kitten/components";
 
 export default function HomeScreen({ navigation, route }) {
   const [product, setProduct] = useState(null);
@@ -26,12 +33,15 @@ export default function HomeScreen({ navigation, route }) {
 
   const handleCloseModal = () => {
     setModalVisible(false);
-    setProduct(null);  // Reset product to allow re-scanning
-    navigation.setParams({ scannedId: null });  // Reset route params
+    setProduct(null); // Reset product to allow re-scanning
+    navigation.setParams({ scannedId: null }); // Reset route params
   };
 
   const handleViewHistory = () => {
-    navigation.navigate("History", { history, resetHistory: () => setHistory([]) });
+    navigation.navigate("History", {
+      history,
+      resetHistory: () => setHistory([]),
+    });
   };
 
   return (
@@ -46,14 +56,19 @@ export default function HomeScreen({ navigation, route }) {
         />
       </TouchableOpacity>
       <Text style={styles.title}>Home Screen</Text>
+      <Card>
+        <Text>
+          The Maldives, officially the Republic of Maldives, is a small country
+          in South Asia, located in the Arabian Sea of the Indian Ocean. It lies
+          southwest of Sri Lanka and India, about 1,000 kilometres (620 mi) from
+          the Asian continent
+        </Text>
+      </Card>
       <Button
         title="Scan QR Code"
         onPress={() => navigation.navigate("QRScanner", { history })}
       />
-      <Button
-        title="View History"
-        onPress={handleViewHistory}
-      />
+      <Button title="View History" onPress={handleViewHistory} />
       <View style={styles.container}>
         {product && (
           <ProductDetailsModal

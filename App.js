@@ -5,6 +5,8 @@ import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 import QRScanner from "./QRScanner.js";
 import HistoryScreen from "./historyScreen.js";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
 
 const Stack = createStackNavigator();
 function ProfileScreen() {
@@ -16,22 +18,24 @@ function ProfileScreen() {
 }
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="QRScanner" component={QRScanner} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="History" component={HistoryScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="QRScanner" component={QRScanner} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="History" component={HistoryScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ApplicationProvider>
   );
 }
