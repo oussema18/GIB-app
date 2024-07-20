@@ -56,14 +56,6 @@ export default function HomeScreen({ navigation, route }) {
         />
       </TouchableOpacity>
       <Text style={styles.title}>Home Screen</Text>
-      <Card>
-        <Text>
-          The Maldives, officially the Republic of Maldives, is a small country
-          in South Asia, located in the Arabian Sea of the Indian Ocean. It lies
-          southwest of Sri Lanka and India, about 1,000 kilometres (620 mi) from
-          the Asian continent
-        </Text>
-      </Card>
       <Button
         title="Scan QR Code"
         onPress={() => navigation.navigate("QRScanner", { history })}
