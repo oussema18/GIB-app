@@ -30,18 +30,28 @@ const ProductDetailsModal = ({ product, visible, onClose }) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Image style={styles.image} source={{ uri: product.Image }} />
-          <Text style={styles.modalText}>Nom: {product.Nom}</Text>
-          <Text style={styles.modalText}>Prix vente: {product.Prix_vente}</Text>
+          <View style={styles.row}>
+            <Text style={styles.label}>Nom</Text>
+            <Text style={styles.value}>{product.Nom}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Prix vente</Text>
+            <Text style={styles.value}>{product.Prix_vente}</Text>
+          </View>
           {canAccessPrice && (
-            <Text style={styles.priceInfo}>
-              Prix achat: {product.Prix_achat}
-            </Text>
+            <View style={styles.row}>
+              <Text style={styles.label}>Prix achat</Text>
+              <Text style={styles.value}>{product.Prix_achat}</Text>
+            </View>
           )}
-          <Text style={styles.modalText}>Couleur: {product.Couleur}</Text>
-          <Text style={styles.modalText}>
-            Identifiant: {product.identifiant}
-          </Text>
-
+          <View style={styles.row}>
+            <Text style={styles.label}>Couleur</Text>
+            <Text style={styles.value}>{product.Couleur}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Identifiant</Text>
+            <Text style={styles.value}>{product.identifiant}</Text>
+          </View>
           <Button title="Close" onPress={onClose} />
         </View>
       </View>
@@ -51,8 +61,19 @@ const ProductDetailsModal = ({ product, visible, onClose }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  },
+  row: {
+    flexDirection: "row",
+    marginBottom: 8,
+  },
+  label: {
+    fontWeight: "bold",
+    width: 100,
+    fontSize: 17, // Change font size for labels
+  },
+  value: {
+    flex: 1,
+    fontSize: 17, // Change font size for labels
   },
   centeredView: {
     flex: 1,
@@ -65,7 +86,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -76,13 +96,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    width: 300,
-    height: 300,
+    width: 700 * 0.4,
+    height: 431 * 0.4,
     marginBottom: 15,
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
   },
 });
 
