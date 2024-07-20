@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
     marginBottom: 15,
   },
   modalText: {

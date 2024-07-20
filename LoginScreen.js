@@ -24,7 +24,7 @@ export default function LoginScreen({ navigation }) {
       if (error) {
         alert("Invalid email or password");
       } else {
-        navigation.navigate("Home");
+        navigation.navigate("Main"); // Navigate to the Main stack
       }
     } catch (error) {
       console.error("Login error:", error);

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Button, StyleSheet, FlatList, Image } from 'react-native';
+import React from "react";
+import { View, Button, StyleSheet, FlatList, Image } from "react-native";
 import { Card, Text } from "@ui-kitten/components";
 
 export default function HistoryScreen({ route, navigation }) {
@@ -22,7 +22,9 @@ export default function HistoryScreen({ route, navigation }) {
               <View style={styles.cardText}>
                 <Text style={styles.productName}>{item.Nom}</Text>
                 <Text style={styles.itemText}>Prix: {item.Prix}</Text>
-                <Text style={styles.itemText}>Prix Vente: {item.Prix_vente}</Text>
+                <Text style={styles.itemText}>
+                  Prix Vente: {item.Prix_vente}
+                </Text>
                 <Text style={styles.itemText}>ID: {item.identifiant}</Text>
               </View>
             </View>
@@ -38,16 +40,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   card: {
     marginBottom: 15,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   cardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
   },
   itemImage: {
@@ -61,17 +63,17 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
-    color: '#333',
+    color: "#333",
   },
   itemText: {
     fontSize: 17,
     marginBottom: 10,
-    color: '#333',
+    color: "#333",
   },
   resetButton: {
     marginTop: 20,
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
 });
