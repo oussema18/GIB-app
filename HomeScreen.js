@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Button } from "react-native";
 import { Camera } from "expo-camera";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { MaterialIcons } from "@expo/vector-icons";
 import { getProductDetailsById } from "./backend/server.js";
 import ProductDetailsModal from "./ProductDetailsModal";
-import { Card } from "@ui-kitten/components";
 
-export default function HomeScreen({ navigation, route }) {
+export default function HomeScreen({ navigation, history, setHistory }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [flashEnabled, setFlashEnabled] = useState(false);
   const [product, setProduct] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [history, setHistory] = useState(route.params?.history || []);
 
   useEffect(() => {
     (async () => {
@@ -33,8 +24,7 @@ export default function HomeScreen({ navigation, route }) {
     setScanned(true);
     try {
       const productDetails = await getProductDetailsById(data);
-      const currentHistory = history || [];
-      const updatedHistory = [...currentHistory, productDetails];
+      const updatedHistory = [...history, productDetails];
       setHistory(updatedHistory);
       setProduct(productDetails);
       setModalVisible(true);
@@ -54,10 +44,7 @@ export default function HomeScreen({ navigation, route }) {
   };
 
   const handleViewHistory = () => {
-    navigation.navigate("History", {
-      history,
-      resetHistory: () => setHistory([]),
-    });
+    navigation.navigate("History", { history });
   };
 
   if (hasPermission === null) {
@@ -81,33 +68,19 @@ export default function HomeScreen({ navigation, route }) {
           <View style={styles.left} />
           <View style={styles.squareWrapper}>
             <View style={styles.square} />
-            <Text style={styles.instructionText}>
-              Align QR code within the frame
-            </Text>
+            <Text style={styles.instructionText}>Align QR code within the frame</Text>
           </View>
           <View style={styles.right} />
         </View>
         <View style={styles.bottom} />
       </View>
       <TouchableOpacity style={styles.flashButton} onPress={toggleFlash}>
-        <MaterialIcons
-          name={flashEnabled ? "flash-on" : "flash-off"}
-          size={24}
-          color="white"
-        />
+        <MaterialIcons name={flashEnabled ? "flash-on" : "flash-off"} size={24} color="white" />
       </TouchableOpacity>
       {scanned && (
-        <Button
-          title={"Tap to Scan Again"}
-          onPress={() => {
-            setScanned(false);
-          }}
-        />
+        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
       )}
-      <TouchableOpacity
-        style={styles.historyButton}
-        onPress={handleViewHistory}
-      >
+      <TouchableOpacity style={styles.historyButton} onPress={handleViewHistory}>
         <Text style={styles.historyButtonText}>View History</Text>
       </TouchableOpacity>
       {product && (

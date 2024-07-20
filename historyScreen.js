@@ -2,12 +2,10 @@ import React from "react";
 import { View, Button, StyleSheet, FlatList, Image } from "react-native";
 import { Card, Text } from "@ui-kitten/components";
 
-export default function HistoryScreen({ route, navigation }) {
-  const { history = [], resetHistory } = route.params || {};
-
+export default function HistoryScreen({ history = [], resetHistory, navigation }) {
   const handleReset = () => {
     resetHistory();
-    navigation.goBack();
+    navigation.navigate("Home");
   };
 
   return (
@@ -22,9 +20,7 @@ export default function HistoryScreen({ route, navigation }) {
               <View style={styles.cardText}>
                 <Text style={styles.productName}>{item.Nom}</Text>
                 <Text style={styles.itemText}>Prix: {item.Prix}</Text>
-                <Text style={styles.itemText}>
-                  Prix Vente: {item.Prix_vente}
-                </Text>
+                <Text style={styles.itemText}>Prix Vente: {item.Prix_vente}</Text>
                 <Text style={styles.itemText}>ID: {item.identifiant}</Text>
               </View>
             </View>
@@ -53,10 +49,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginRight: 15,
+    width: 700*0.2,
+    height: 431*0.2,
+    marginRight: 10,
   },
   cardText: {
     flex: 1,

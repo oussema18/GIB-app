@@ -4,21 +4,15 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
-import QRScanner from "./QRScanner.js";
-import HistoryScreen from "./HistoryScreen.js";
+import HistoryScreen from "./HistoryScreen";
 import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
-
-import {
-  ApplicationProvider,
-  IconRegistry,
-  Layout,
-  Text,
-} from "@ui-kitten/components";
+import { ApplicationProvider, IconRegistry, Text } from "@ui-kitten/components";
 import { BottomNavigation, BottomNavigationTab } from "@ui-kitten/components";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
     selectedIndex={state.index}
@@ -28,6 +22,7 @@ const BottomTabBar = ({ navigation, state }) => (
     <BottomNavigationTab title="History" />
   </BottomNavigation>
 );
+
 function MainTabs({ route }) {
   const [history, setHistory] = useState(route.params?.history || []);
 
@@ -38,29 +33,15 @@ function MainTabs({ route }) {
   return (
     <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Tab.Screen name="Home">
-        {(props) => <HomeScreen {...props} history={history} />}
+        {(props) => <HomeScreen {...props} history={history} setHistory={setHistory} />}
       </Tab.Screen>
-
       <Tab.Screen name="History">
-        {(props) => (
-          <HistoryScreen
-            {...props}
-            history={history}
-            resetHistory={resetHistory}
-          />
-        )}
+        {(props) => <HistoryScreen {...props} history={history} resetHistory={resetHistory} />}
       </Tab.Screen>
     </Tab.Navigator>
   );
 }
 
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile Screen</Text>
-    </View>
-  );
-}
 export default function App() {
   return (
     <>
