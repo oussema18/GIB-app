@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList, Image } from 'react-native';
+import React from "react";
+import { View, Text, Button, StyleSheet, FlatList, Image } from "react-native";
 
 export default function HistoryScreen({ route, navigation }) {
   const { history = [], resetHistory } = route.params || {};
@@ -19,8 +19,7 @@ export default function HistoryScreen({ route, navigation }) {
             <Image source={{ uri: item.Image }} style={styles.itemImage} />
             <Text style={styles.itemText}>ID: {item.identifiant}</Text>
             <Text style={styles.itemText}>Nom Produit: {item.Nom}</Text>
-            <Text style={styles.itemText}>Prix: {item.Prix}</Text>
-            <Text style={styles.itemText}>Description: {item.Description}</Text>
+            <Text style={styles.itemText}>Prix: {item.Prix_achat}</Text>
             <Text style={styles.itemText}>Couleur: {item.Couleur}</Text>
 
             {/* Add other product details as needed */}
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 24,
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
   item: {
     padding: 20,
     borderBottomWidth: 3,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
   },
   itemText: {
     fontSize: 18,

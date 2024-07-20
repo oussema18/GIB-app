@@ -9,17 +9,26 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-
+import { supabase } from "./backend/server.js";
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Replace this with your actual login logic
-    if (username === "admin" && password === "password") {
-      navigation.navigate("Home");
-    } else {
-      alert("Invalid username or password");
+  const handleLogin = async () => {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username,
+        password: password,
+      });
+
+      if (error) {
+        alert("Invalid email or password");
+      } else {
+        navigation.navigate("Home");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("An error occurred during login");
     }
   };
 

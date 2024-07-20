@@ -1,8 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, View, Text, Image, Button, StyleSheet } from "react-native";
+import { supabase } from "./backend/server.js";
 
 const ProductDetailsModal = ({ product, visible, onClose }) => {
-  console.log(product);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const session = await supabase.auth.getSession();
+      if (session.data.session) {
+        setUser(session.data.session.user);
+      } else {
+        // handle user not logged in
+      }
+    };
+
+    getSession();
+  }, []);
+
+  const canAccessPrice = user && user.email === "gib.masmoudi@gmail.com";
+
   return (
     <Modal
       animationType="slide"
@@ -12,12 +29,19 @@ const ProductDetailsModal = ({ product, visible, onClose }) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>Nom: {product.Nom}</Text>
-          <Text style={styles.modalText}>Couleur: {product.Couleur}</Text>
           <Image style={styles.image} source={{ uri: product.Image }} />
+          <Text style={styles.modalText}>Nom: {product.Nom}</Text>
+          <Text style={styles.modalText}>Prix vente: {product.Prix_vente}</Text>
+          {canAccessPrice && (
+            <Text style={styles.priceInfo}>
+              Prix achat: {product.Prix_achat}
+            </Text>
+          )}
+          <Text style={styles.modalText}>Couleur: {product.Couleur}</Text>
           <Text style={styles.modalText}>
             Identifiant: {product.identifiant}
           </Text>
+
           <Button title="Close" onPress={onClose} />
         </View>
       </View>
