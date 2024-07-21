@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation, history, setHistory }) {
           <View style={styles.left} />
           <View style={styles.squareWrapper}>
             <View style={styles.square} />
-            <Text style={styles.instructionText}>Align QR code within the frame</Text>
+            <Text style={styles.instructionText}>QR code</Text>
           </View>
           <View style={styles.right} />
         </View>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -125,16 +125,18 @@ const styles = StyleSheet.create({
   square: {
     width: 250,
     height: 250,
-    borderColor: "white",
-    borderWidth: 2,
+    borderColor: "#e8560d",
+    borderWidth: 8,
     backgroundColor: "transparent",
-    borderRadius: 10,
+    borderRadius: 35,
     borderStyle: "dashed",
   },
   instructionText: {
-    color: "white",
-    marginTop: 10,
-    fontSize: 16,
+    color: "#2c3484",
+    fontWeight: "bold",
+
+    marginTop: 15,
+    fontSize: 17,
   },
   right: {
     flex: 1,
