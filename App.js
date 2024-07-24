@@ -9,6 +9,9 @@ import * as eva from "@eva-design/eva";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { ApplicationProvider, IconRegistry, Text } from "@ui-kitten/components";
 import { BottomNavigation, BottomNavigationTab } from "@ui-kitten/components";
+import { enableScreens } from "react-native-screens";
+
+enableScreens();
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -33,10 +36,18 @@ function MainTabs({ route }) {
   return (
     <Tab.Navigator tabBar={(props) => <BottomTabBar {...props} />}>
       <Tab.Screen name="Home">
-        {(props) => <HomeScreen {...props} history={history} setHistory={setHistory} />}
+        {(props) => (
+          <HomeScreen {...props} history={history} setHistory={setHistory} />
+        )}
       </Tab.Screen>
       <Tab.Screen name="History">
-        {(props) => <HistoryScreen {...props} history={history} resetHistory={resetHistory} />}
+        {(props) => (
+          <HistoryScreen
+            {...props}
+            history={history}
+            resetHistory={resetHistory}
+          />
+        )}
       </Tab.Screen>
     </Tab.Navigator>
   );
